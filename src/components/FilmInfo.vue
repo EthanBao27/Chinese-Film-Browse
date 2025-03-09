@@ -13,128 +13,132 @@
 </template>
 
 <script setup lang="ts">
-  import { inject, ref, Ref, watchEffect } from 'vue';
-  import { storeToRefs } from 'pinia';
-  import { useModeStore } from '../stores/modeStores';
+import { inject, ref, Ref, watchEffect } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useModeStore } from '../stores/modeStores';
 
-  interface Details {
-    title: string;
-    brief: string;
-    isActive: boolean;
-  }
+interface Details {
+  title: string;
+  brief: string;
+  isActive: boolean;
+}
 
-  const details = inject('details') as Ref<Details>;
-  const modeStore = useModeStore();
-  const { isNightMode } = storeToRefs(modeStore);
+const details = inject('details') as Ref<Details>;
+const modeStore = useModeStore();
+const { isNightMode } = storeToRefs(modeStore);
 
-  const modeClass = ref('');
+const modeClass = ref('');
 
-  watchEffect(() => {
-    modeClass.value = isNightMode.value ? 'night' : '';
-  });
+watchEffect(() => {
+  modeClass.value = isNightMode.value ? 'night' : '';
+});
 
-  function changeActive() {
-    details.value.isActive = !details.value.isActive;
-  }
+function changeActive() {
+  details.value.isActive = !details.value.isActive;
+}
 </script>
 
 <style scoped lang="scss">
-  .filter {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.5s;
-    visibility: hidden;
+.filter {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s;
+  visibility: hidden;
 
-    &.active {
-      visibility: visible;
-      &::before {
-        backdrop-filter: blur(10px);
-      }
-
-      #popup {
-        transform: scale(1);
-      }
-    }
+  &.active {
+    visibility: visible;
 
     &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0);
-      transition: 0.5s;
-      z-index: -1;
+      backdrop-filter: blur(10px);
     }
 
     #popup {
-      position: fixed;
-      z-index: 1000;
-      background: #fff;
-      width: 50%;
-      max-width: 850px;
-      max-height: 50%;
-      padding: 20px;
-      box-shadow: 0 15px 30px inset rgba(0, 0, 0, 0.08);
-      transform: scale(0);
-      transition: transform 0.5s ease-in-out;
-      overflow-y: auto;
+      transform: scale(1);
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0);
+    transition: 0.5s;
+    z-index: -1;
+  }
+
+  #popup {
+    position: fixed;
+    z-index: 1000;
+    background: #fff;
+    width: 50%;
+    max-width: 850px;
+    max-height: 50%;
+    padding: 20px;
+    box-shadow: 0 15px 30px inset rgba(0, 0, 0, 0.08);
+    transform: scale(0);
+    transition: transform 0.5s ease-in-out;
+    overflow-y: auto;
+    position: relative;
+
+    .content {
       position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      top: 10px;
 
-      .content {
-        position: relative;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        top: 10px;
-
-        h2 {
-          font-size: 2rem;
-          margin: 0 10px 24px;
-        }
-
-        p {
-          text-align: center;
-          font-size: 1.25rem;
-          color: #333;
-        }
+      h2 {
+        font-size: 2rem;
+        margin: 0 10px 24px;
       }
 
-      .close-button {
-        position: absolute;
-        width: 24px;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
+      p {
+        text-align: center;
+        font-size: 1.25rem;
+        color: #333;
+      }
+    }
 
-        &:hover {
-          transform: scale(1.5) rotate(90deg);
-          transition: 0.5s ease;
-        }
+    .close-button {
+      position: absolute;
+      width: 24px;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.5) rotate(90deg);
+        transition: 0.5s ease;
       }
     }
   }
+}
 
-  /* 夜晚模式的样式 */
-  .filter.night {
-    color: #daeff5; /* 文字变为浅色 */
+/* 夜晚模式的样式 */
+.filter.night {
+  color: #daeff5;
+  /* 文字变为浅色 */
 
-    #popup {
-      background-color: #4b5258; /* 弹出窗口背景色 */
-      box-shadow: 0 15px 30px inset rgba(0, 0, 0, 0.3); /* 更暗的阴影 */
+  #popup {
+    background-color: #4b5258;
+    /* 弹出窗口背景色 */
+    box-shadow: 0 15px 30px inset rgba(0, 0, 0, 0.3);
+    /* 更暗的阴影 */
 
-      .content p {
-        color: rgb(206, 215, 222);
-      }
+    .content p {
+      color: rgb(206, 215, 222);
     }
   }
+}
 </style>

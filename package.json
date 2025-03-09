@@ -5,23 +5,26 @@
   "type": "module",
   "scripts": {
     "dev": "vite  --open",
-    "build": "vue-tsc -b && vite build",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@types/node": "^20.14.11",
     "@vueuse/core": "^11.1.0",
+    "echarts": "^5.6.0",
     "express": "^4.21.0",
     "http": "^0.0.1-security",
+    "lodash.debounce": "^4.0.8",
     "mysql": "^2.18.1",
     "pinia": "^2.2.2",
     "pinia-plugin-persistedstate": "^4.0.2",
-    "socket.io": "^4.8.0",
-    "socket.io-client": "^4.8.0",
+    "socket.io-client": "^4.8.1",
     "vue": "^3.4.31",
+    "vue-echarts": "^7.0.3",
     "vue-router": "^4.4.5"
   },
   "devDependencies": {
+    "@types/lodash.debounce": "^4.0.9",
     "@vitejs/plugin-vue": "^5.1.2",
     "sass": "^1.77.8",
     "typescript": "^5.5.4",
