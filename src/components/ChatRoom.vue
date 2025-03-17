@@ -221,22 +221,16 @@ function sendMessage() {
     if (!newMessage.value.trim() || !socket.value || !isLoggedIn.value) return;
 
     const now = new Date();
-    const formattedDate = now.toLocaleString('zh-CN', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-    });
+    // 使用 ISO 格式，确保是 UTC 时间
+    const formattedDate = now.toISOString();
 
     // 构建消息数据，包含电影ID
     const messageData = {
         msg: newMessage.value,
-        created_at: formattedDate,
+        created_at: formattedDate,  // 使用 ISO 格式的时间
         color: getAvatarColor(username.value || '匿名用户'),
         movieId: props.movieId,
-        movieTitle: props.movieTitle // 添加电影标题，便于后端存储和管理
+        movieTitle: props.movieTitle
     };
 
     // 发送消息到服务器

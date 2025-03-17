@@ -284,23 +284,15 @@ function sendMessage() {
     if (!newMessage.value.trim() || !socket.value || !isLoggedIn.value) return;
 
     const now = new Date();
-    const formattedDate = now.toLocaleString('zh-CN', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false,
-        timeZone: 'Asia/Shanghai'  // 使用中国时区，会自动处理 UTC+8 转换
-    });
+    // 使用 ISO 格式，确保是 UTC 时间
+    const formattedDate = now.toISOString();
 
-    // 构建消息数据，包含电影ID - 修复：修正toString调用和字段名
+    // 构建消息数据，包含电影ID
     const messageData = {
         msg: newMessage.value,
-        created_at: formattedDate,
+        created_at: formattedDate,  // 使用 ISO 格式的时间
         color: userColor.value,
-        movieId: COMMUNITY_CHAT_ID.toString() // 修复：字段名从movie_id改为movieId
+        movieId: COMMUNITY_CHAT_ID.toString()
     };
 
     console.log("发送消息:", messageData);
