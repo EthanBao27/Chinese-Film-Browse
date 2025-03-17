@@ -99,6 +99,7 @@ watchEffect(() => {
     background-color: var(--light-bg-primary);
     color: var(--light-text-primary);
     transition: all 0.3s ease;
+    overflow-x: hidden; // 防止水平滚动
 
     &.night {
         background-color: var(--dark-bg-primary);
@@ -118,6 +119,13 @@ watchEffect(() => {
         background-attachment: fixed;
         color: #fff;
         overflow: hidden;
+        margin-bottom: 40px; // 添加底部间距
+
+        @media (max-width: 768px) {
+            height: auto;
+            min-height: 80vh;
+            padding: 40px 0;
+        }
 
         .overlay {
             position: absolute;
@@ -247,12 +255,23 @@ watchEffect(() => {
         padding: 80px 20px;
         max-width: 1200px;
         margin: 0 auto;
+        position: relative;
+        z-index: 1;
+
+        @media (max-width: 768px) {
+            padding: 40px 15px;
+        }
 
         h2 {
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 40px;
             position: relative;
+
+            @media (max-width: 768px) {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
 
             &:after {
                 content: '';
@@ -277,11 +296,11 @@ watchEffect(() => {
 
             @media (max-width: 768px) {
                 flex-direction: column;
-                
+
                 .about-image {
                     width: 100%;
                     margin-top: 20px;
-                    
+
                     .image-container {
                         height: 250px;
                     }
@@ -350,15 +369,26 @@ watchEffect(() => {
     .categories-section {
         padding: 60px 20px 100px;
         background-color: var(--light-bg-secondary);
+        position: relative;
+        z-index: 1;
 
         .night & {
             background-color: var(--dark-bg-secondary);
+        }
+
+        @media (max-width: 768px) {
+            padding: 40px 15px 60px;
         }
 
         h2 {
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 40px;
+
+            @media (max-width: 768px) {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
         }
 
         .categories {
@@ -368,6 +398,10 @@ watchEffect(() => {
             justify-content: center;
             max-width: 1200px;
             margin: 0 auto;
+
+            @media (max-width: 768px) {
+                gap: 20px;
+            }
 
             .category-item {
                 width: calc(33.33% - 20px);
@@ -384,10 +418,15 @@ watchEffect(() => {
                 transition: all 0.3s ease;
                 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 
-                .night & {
-                    background-color: var(--dark-bg-primary);
-                    color: var(--dark-text-primary);
-                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                @media (max-width: 768px) {
+                    width: calc(50% - 10px);
+                    min-width: 140px;
+                    height: 160px;
+                }
+
+                @media (max-width: 480px) {
+                    width: 100%;
+                    min-width: 100%;
                 }
 
                 &:hover {
