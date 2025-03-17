@@ -46,7 +46,7 @@
                                         </div>
                                         <div class="message-info">
                                             <span class="message-author">{{ message.username }}</span>
-                                            <span class="message-time">{{ message.created_at }}</span>
+                                            <span class="message-time">{{ formatTime(message.created_at) }}</span>
                                         </div>
                                     </div>
                                     <div class="message-content">
@@ -143,6 +143,20 @@ const isLoggedIn = computed(() => !!username.value);
 
 const isLoading = ref(true);
 const connectionTimeout = ref<number | null>(null);
+
+function formatTime(timestamp: string | number) {
+    const date = new Date(timestamp);
+    return date.toLocaleString('zh-CN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+        timeZone: 'Asia/Shanghai'  // 使用中国时区，会自动处理 UTC+8 转换
+    });
+}
 
 function getColorFromUsername(name: string): string {
     const hash = Array.from(name).reduce(

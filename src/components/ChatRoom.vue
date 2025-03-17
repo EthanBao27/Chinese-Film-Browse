@@ -32,7 +32,7 @@
                 <div class="message-content">
                     <div class="message-header">
                         <span class="username">{{ message.username }}</span>
-                        <span class="time">{{ message.created_at || formatTime(message.timestamp) }}</span>
+                        <span class="time">{{ formatTime(message.created_at) }}</span>
                     </div>
                     <div class="message-text">{{ message.msg || message.content }}</div>
                 </div>
