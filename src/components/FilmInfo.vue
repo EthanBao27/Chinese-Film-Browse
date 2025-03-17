@@ -79,15 +79,17 @@ function changeActive() {
     position: fixed;
     z-index: 1000;
     background: #fff;
-    width: 50%;
+    width: 70%;
     max-width: 850px;
-    max-height: 50%;
-    padding: 20px;
+    min-width: 320px;
+    max-height: 70%;
+    padding: 30px;
     box-shadow: 0 15px 30px inset rgba(0, 0, 0, 0.08);
     transform: scale(0);
     transition: transform 0.5s ease-in-out;
     overflow-y: auto;
     position: relative;
+    border-radius: 12px;
 
     .content {
       position: relative;
@@ -101,20 +103,24 @@ function changeActive() {
       h2 {
         font-size: 2rem;
         margin: 0 10px 24px;
+        text-align: center;
       }
 
       p {
-        text-align: center;
+        text-align: justify;
         font-size: 1.25rem;
         color: #333;
+        line-height: 1.6;
+        padding: 0 10px;
+        margin-bottom: 20px;
       }
     }
 
     .close-button {
       position: absolute;
-      width: 24px;
-      top: 10px;
-      right: 10px;
+      width: 28px;
+      top: 15px;
+      right: 15px;
       cursor: pointer;
 
       &:hover {
@@ -138,6 +144,34 @@ function changeActive() {
 
     .content p {
       color: rgb(206, 215, 222);
+    }
+  }
+}
+
+/* 媒体查询，调整移动端样式 */
+@media (max-width: 768px) {
+  #popup {
+    width: 90%;
+    min-width: 280px;
+    padding: 20px;
+    max-height: 80%;
+
+    .content {
+      h2 {
+        font-size: 1.5rem;
+        margin-bottom: 16px;
+      }
+
+      p {
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+    }
+
+    .close-button {
+      width: 24px;
+      top: 10px;
+      right: 10px;
     }
   }
 }

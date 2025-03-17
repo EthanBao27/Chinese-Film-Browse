@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="action-buttons">
-      <button class="details-btn" @click="goToMovieDetail(movie.id, movie.nm)">
+      <button class="details-btn" @click="ShowDetails(movie.id)">
         <span class="btn-icon">📽️</span>
         <span>详情</span>
       </button>
@@ -309,57 +309,66 @@ onMounted(() => {
 
       &.excellent {
         background-color: var(--rating-excellent);
-        
+
         span {
-          color: #222; /* 白天模式下使用深色文本 */
+          color: #222;
+          /* 白天模式下使用深色文本 */
         }
-        
+
         .night & span {
-          color: white; /* 夜间模式下使用白色文本 */
+          color: white;
+          /* 夜间模式下使用白色文本 */
         }
       }
 
       &.good {
         background-color: var(--rating-good);
-        
+
         span {
-          color: #222; /* 白天模式下使用深色文本 */
+          color: #222;
+          /* 白天模式下使用深色文本 */
         }
-        
+
         .night & span {
-          color: white; /* 夜间模式下使用白色文本 */
+          color: white;
+          /* 夜间模式下使用白色文本 */
         }
       }
 
       &.average {
         background-color: var(--rating-average);
-        
+
         span {
-          color: #222; /* 平均评分使用深色文本 */
+          color: #222;
+          /* 平均评分使用深色文本 */
         }
       }
 
       &.poor {
         background-color: var(--rating-poor);
-        
+
         span {
-          color: #222; /* 白天模式下使用深色文本 */
+          color: #222;
+          /* 白天模式下使用深色文本 */
         }
-        
+
         .night & span {
-          color: white; /* 夜间模式下使用白色文本 */
+          color: white;
+          /* 夜间模式下使用白色文本 */
         }
       }
 
       &.none {
         background-color: var(--rating-none);
-        
+
         span {
-          color: #222; /* 白天模式下使用深色文本 */
+          color: #222;
+          /* 白天模式下使用深色文本 */
         }
-        
+
         .night & span {
-          color: white; /* 夜间模式下使用白色文本 */
+          color: white;
+          /* 夜间模式下使用白色文本 */
         }
       }
     }

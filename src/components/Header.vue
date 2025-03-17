@@ -798,32 +798,51 @@ onBeforeUnmount(() => {
   }
 
   @media (max-width: 768px) {
-    height: 56px;
-    /* 移动端降低高度 */
+    height: 50px;
+    /* 进一步减小高度 */
 
     .container {
-      padding: 0 16px;
+      padding: 0 14px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      /* 将所有元素居中对齐 */
+      height: 100%;
+      /* 确保容器高度占满header */
 
-      .logo h1 {
-        font-size: 20px;
+      .logo {
+        flex: 0 0 auto;
+        margin-top: 0;
+        /* 移除上边距 */
+
+        h1 {
+          font-size: 16px;
+          /* 进一步减小标题字体 */
+          margin: 0;
+        }
       }
 
       .mobile-menu {
         display: flex;
         flex-direction: column;
-        gap: 4px;
-        padding: 4px;
+        gap: 3px;
+        /* 减小间距 */
+        padding: 3px;
         cursor: pointer;
+        order: 3;
+        margin-top: 0;
+        /* 移除上边距 */
 
         .bar {
-          width: 24px;
+          width: 22px;
+          /* 稍微减小尺寸 */
           height: 2px;
           background-color: var(--light-text-primary);
           transition: all 0.3s ease;
 
           &.open {
             &:nth-child(1) {
-              transform: translateY(6px) rotate(45deg);
+              transform: translateY(5px) rotate(45deg);
             }
 
             &:nth-child(2) {
@@ -831,7 +850,7 @@ onBeforeUnmount(() => {
             }
 
             &:nth-child(3) {
-              transform: translateY(-6px) rotate(-45deg);
+              transform: translateY(-5px) rotate(-45deg);
             }
           }
         }
@@ -846,6 +865,7 @@ onBeforeUnmount(() => {
         background: var(--light-bg-primary);
         padding: 8px 16px;
         box-shadow: var(--light-shadow);
+        z-index: 1001;
 
         &.mobile-open {
           display: flex;
@@ -855,17 +875,68 @@ onBeforeUnmount(() => {
       }
 
       .search-container {
-        flex: 1;
-        margin: 8px 0;
+        position: absolute;
+        top: 50px;
+        /* 移到header下方 */
+        left: 0;
+        right: 0;
+        flex: 1 1 100%;
+        margin: 0;
+        /* 移除外边距 */
+        padding: 6px 14px;
+        order: 4;
+        background: inherit;
+        /* 继承header背景色 */
+        z-index: 99;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
 
       .auth-buttons,
       .user-info {
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 6px;
+        /* 减小间距 */
+        flex: 0 0 auto;
+        order: 2;
+        margin-top: 0;
+        /* 移除上边距 */
 
         button {
-          width: auto;
+          padding: 4px 6px;
+          /* 减小按钮内边距 */
+          font-size: 12px;
+          min-height: 0;
+          line-height: 1;
+        }
+
+        span {
+          font-size: 12px;
+          display: none;
+        }
+      }
+
+      .btn {
+        flex: 0 0 auto;
+        order: 1;
+        margin-top: 0;
+        /* 移除上边距 */
+
+        button {
+          padding: 4px 6px;
+          /* 减小按钮内边距 */
+          font-size: 12px;
+          min-height: 0;
+          line-height: 1;
+
+          span {
+            display: none;
+          }
+
+          .icon-wrapper {
+            width: 20px;
+            height: 20px;
+            margin: 0;
+          }
         }
       }
     }

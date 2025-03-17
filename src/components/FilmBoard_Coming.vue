@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="action-buttons">
-      <button class="details-btn" @click="goToMovieDetail(movie.id, movie.nm)">
+      <button class="details-btn" @click="ShowDetails(movie.id)">
         <span class="btn-icon">📽️</span>
         <span>详情</span>
       </button>
@@ -42,18 +42,6 @@ import { useModeStore } from '../stores/modeStores';
 import { useRouter } from 'vue-router';
 import type { Movie, Details } from '../types'; // 引入自定义类型
 
-interface Movie {
-  id: number;
-  nm: string;
-  img: string;
-  sc: string;
-}
-interface Details {
-  title: String | null;
-  brief: String | null;
-  isActive: Boolean;
-}
-
 const details = inject('details') as Ref<Details>;
 const modeStore = useModeStore();
 const { isNightMode } = storeToRefs(modeStore);
@@ -66,8 +54,8 @@ watchEffect(() => {
 });
 
 function isValidScore(score: string): boolean {
-  // 如果需要显示0分，移除score !== '0'条件
-  return score !== '' && !isNaN(Number(score));
+  // 判断评分是否有效，评分为0或空时返回false，显示"暂无"
+  return score !== '' && score !== '0' && !isNaN(Number(score)) && Number(score) > 0;
 }
 
 function getRatingClass(score: number) {
@@ -323,57 +311,66 @@ onMounted(() => {
 
       &.excellent {
         background-color: var(--rating-excellent);
-        
+
         span {
-          color: #222; /* 白天模式下使用深色文本 */
+          color: #222;
+          /* 白天模式下使用深色文本 */
         }
-        
+
         .night & span {
-          color: white; /* 夜间模式下使用白色文本 */
+          color: white;
+          /* 夜间模式下使用白色文本 */
         }
       }
 
       &.good {
         background-color: var(--rating-good);
-        
+
         span {
-          color: #222; /* 白天模式下使用深色文本 */
+          color: #222;
+          /* 白天模式下使用深色文本 */
         }
-        
+
         .night & span {
-          color: white; /* 夜间模式下使用白色文本 */
+          color: white;
+          /* 夜间模式下使用白色文本 */
         }
       }
 
       &.average {
         background-color: var(--rating-average);
-        
+
         span {
-          color: #222; /* 平均评分使用深色文本 */
+          color: #222;
+          /* 平均评分使用深色文本 */
         }
       }
 
       &.poor {
         background-color: var(--rating-poor);
-        
+
         span {
-          color: #222; /* 白天模式下使用深色文本 */
+          color: #222;
+          /* 白天模式下使用深色文本 */
         }
-        
+
         .night & span {
-          color: white; /* 夜间模式下使用白色文本 */
+          color: white;
+          /* 夜间模式下使用白色文本 */
         }
       }
 
       &.none {
         background-color: var(--rating-none);
-        
+
         span {
-          color: #222; /* 白天模式下使用深色文本 */
+          color: #222;
+          /* 白天模式下使用深色文本 */
         }
-        
+
         .night & span {
-          color: white; /* 夜间模式下使用白色文本 */
+          color: white;
+          /* 夜间模式下使用白色文本 */
         }
       }
     }
