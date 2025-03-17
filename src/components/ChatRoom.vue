@@ -127,18 +127,17 @@ function connectWebSocket() {
                 created_at: new Date().toLocaleString('zh-CN')
             }];
         }
-    }, 5000); // 5秒超时
+    }, 300000); // 300秒超时
 
     // 连接到WebSocket服务器，传递用户名和电影ID
-    socket.value = io('http://localhost:3000', {
+    socket.value = io('http://8.153.74.243:3000', {
         withCredentials: true,
         transports: ['websocket', 'polling'],
         query: {
             username: username.value || '匿名用户',
             movieId: props.movieId
         },
-        timeout: 5000, // 设置连接超时
-        reconnectionAttempts: 3 // 重连尝试次数
+        reconnectionAttempts: 5 // 增加重连尝试次数
     });
 
     // 连接成功
@@ -535,22 +534,65 @@ watch(isLoggedIn, (newValue) => {
 @media (max-width: 768px) {
     .chat-room {
         border-radius: 0;
+        height: calc(100vh - 120px);
+        max-height: 500px;
+    }
+
+    .chat-header {
+        padding: 10px;
+
+        h3 {
+            font-size: 16px;
+            max-width: 70%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .online-count {
+            font-size: 12px;
+        }
+    }
+
+    .messages {
+        padding: 10px;
+        gap: 10px;
     }
 
     .message {
+        padding: 8px;
+
         .avatar {
             width: 32px;
             height: 32px;
             font-size: 14px;
         }
+
+        .message-content {
+            .message-text {
+                font-size: 14px;
+                word-break: break-word;
+            }
+        }
     }
 
     .chat-input {
-        padding: 12px;
+        padding: 10px;
 
         input {
-            font-size: 16px; // 移动端输入更友好
+            font-size: 16px;
+            padding: 6px 10px;
         }
+
+        button {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+    }
+
+    .login-prompt {
+        padding: 8px;
+        font-size: 13px;
     }
 }
 

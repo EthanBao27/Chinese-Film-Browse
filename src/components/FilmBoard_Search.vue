@@ -54,8 +54,8 @@ watchEffect(() => {
 });
 
 function isValidScore(score: string): boolean {
-  // 如果需要显示0分，移除score !== '0'条件
-  return score !== '' && !isNaN(Number(score));
+  // 判断评分是否有效，评分为0或空时返回false，显示"暂无"
+  return score !== '' && score !== '0' && !isNaN(Number(score)) && Number(score) > 0;
 }
 
 function getRatingClass(score: number) {

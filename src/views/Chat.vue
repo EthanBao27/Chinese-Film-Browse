@@ -192,18 +192,17 @@ function connectWebSocket() {
                 created_at: new Date().toLocaleString('zh-CN')
             }];
         }
-    }, 5000); // 5秒超时
+    }, 300000); // 30秒超时
 
     // 连接到WebSocket服务器，传递用户名和电影ID - 修复：使用固定的社区ID
-    socket.value = io('http://localhost:3000', {
+    socket.value = io('http://8.153.74.243:3000', {
         withCredentials: true,
         transports: ['websocket', 'polling'],
         query: {
             username: username.value || '匿名用户',
             movieId: COMMUNITY_CHAT_ID.toString() // 修复：字段名从movie_id改为movieId
         },
-        timeout: 5000, // 设置连接超时
-        reconnectionAttempts: 3 // 重连尝试次数
+        reconnectionAttempts: 5 // 重连尝试次数
     });
 
     // 连接成功

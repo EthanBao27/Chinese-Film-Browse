@@ -277,6 +277,15 @@ watchEffect(() => {
 
             @media (max-width: 768px) {
                 flex-direction: column;
+                
+                .about-image {
+                    width: 100%;
+                    margin-top: 20px;
+                    
+                    .image-container {
+                        height: 250px;
+                    }
+                }
             }
 
             .about-text {
@@ -315,12 +324,17 @@ watchEffect(() => {
 
             .about-image {
                 flex: 1;
+                min-height: 350px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
                 .image-container {
+                    width: 100%;
                     height: 350px;
                     background-image: url('../assets/images/background.jpg');
                     background-size: cover;
-                    background-position: top center;
+                    background-position: center;
                     border-radius: 12px;
                     box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.3);
 

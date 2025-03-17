@@ -25,7 +25,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
           secure: false,
         },
         "/db": {
-          target: "http://localhost:3000", // 后端服务器地址
+          target: "http://8.153.74.243:3000", // 后端服务器地址
           changeOrigin: true, // 允许跨域
           rewrite: (pathStr: string) => pathStr.replace(/^\/db/, ""), // 重写路径
           secure: false,
