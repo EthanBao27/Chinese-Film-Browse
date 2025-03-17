@@ -1,0 +1,42 @@
+// Colors
+$primary-color: #1890ff;
+$success-color: #52c41a;
+$warning-color: #faad14;
+$error-color: #f5222d;
+$text-color: #333333;
+$text-color-secondary: #666666;
+$border-color: #e8e8e8;
+$background-color: #f0f2f5;
+
+// Layout
+$header-height: 64px;
+$sidebar-width: 200px;
+$content-padding: 24px;
+
+// Breakpoints
+$screen-xs: 480px;
+$screen-sm: 576px;
+$screen-md: 768px;
+$screen-lg: 992px;
+$screen-xl: 1200px;
+
+// Typography
+$font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  "Helvetica Neue", Arial, sans-serif;
+$font-size-base: 14px;
+$font-size-lg: 16px;
+$font-size-sm: 12px;
+
+// Border radius
+$border-radius-base: 4px;
+$border-radius-sm: 2px;
+$border-radius-lg: 8px;
+
+// Shadows
+$box-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.15);
+$box-shadow-card: 0 1px 2px -2px rgba(0, 0, 0, 0.16),
+  0 3px 6px 0 rgba(0, 0, 0, 0.12), 0 5px 12px 4px rgba(0, 0, 0, 0.09);
+
+// Transitions
+$transition-duration: 0.3s;
+$transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);

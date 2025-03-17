@@ -196,6 +196,8 @@ function connectWebSocket() {
 
     // 连接到WebSocket服务器，传递用户名和电影ID - 修复：使用固定的社区ID
     socket.value = io('http://localhost:3000', {
+        withCredentials: true,
+        transports: ['websocket', 'polling'],
         query: {
             username: username.value || '匿名用户',
             movieId: COMMUNITY_CHAT_ID.toString() // 修复：字段名从movie_id改为movieId
