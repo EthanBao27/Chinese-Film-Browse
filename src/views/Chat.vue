@@ -290,7 +290,9 @@ function sendMessage() {
         day: '2-digit',
         hour: '2-digit',
         minute: '2-digit',
-        second: '2-digit'
+        second: '2-digit',
+        hour12: false,
+        timeZone: 'Asia/Shanghai'  // 使用中国时区，会自动处理 UTC+8 转换
     });
 
     // 构建消息数据，包含电影ID - 修复：修正toString调用和字段名

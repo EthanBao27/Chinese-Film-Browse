@@ -86,9 +86,18 @@ watchEffect(() => {
     mode.value = isNightMode.value ? "night" : "";
 });
 
-function formatTime(timestamp: number) {
+function formatTime(timestamp: string | number) {
     const date = new Date(timestamp);
-    return date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+    return date.toLocaleString('zh-CN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+        timeZone: 'Asia/Shanghai'  // 使用中国时区，会自动处理 UTC+8 转换
+    });
 }
 
 function getRandomColor() {
