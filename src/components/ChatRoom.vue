@@ -221,8 +221,14 @@ function sendMessage() {
     if (!newMessage.value.trim() || !socket.value || !isLoggedIn.value) return;
 
     const now = new Date();
-    // 使用 ISO 格式，确保是 UTC 时间
-    const formattedDate = now.toISOString();
+    const beijingOffset = 8 * 60 * 60 * 1000; // 东八区偏移量（毫秒）
+    const beijingTime = new Date(now.getTime() + beijingOffset);
+    // 转换为 MySQL 格式 (YYYY-MM-DD HH:mm:ss)
+    const formattedDate = beijingTime
+        .toISOString()
+        .replace('T', ' ')
+        .substring(0, 19);
+
 
     // 构建消息数据，包含电影ID
     const messageData = {
