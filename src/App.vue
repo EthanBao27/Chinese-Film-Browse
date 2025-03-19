@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide, watchEffect, computed } from 'vue';
+import { ref, provide, watchEffect, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useModeStore } from './stores/modeStores';
@@ -48,9 +48,28 @@ const details = ref<Details>({
 
 provide('details', details);
 
-watchEffect(() => {
-  mode.value = isNightMode.value ? "night" : ""
+// 确保在组件挂载后立即应用正确的模式
+onMounted(() => {
+  applyThemeMode();
 });
+
+// 监听模式变化
+watchEffect(() => {
+  applyThemeMode();
+});
+
+// 应用主题模式到 DOM
+function applyThemeMode() {
+  mode.value = isNightMode.value ? "night" : "";
+  // 添加/移除 HTML 元素上的 night 类
+  if (isNightMode.value) {
+    document.documentElement.classList.add('night')
+    document.body.classList.add('night')
+  } else {
+    document.documentElement.classList.remove('night')
+    document.body.classList.remove('night')
+  }
+}
 </script>
 
 <style>
@@ -85,14 +104,37 @@ watchEffect(() => {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: var(--light-bg-primary);
+}
+
+html.night,
+body.night {
+  background-color: var(--dark-bg-primary);
+  color: var(--dark-text-primary);
+}
+
+/* 针对登录/注册页面的额外样式 */
+body.login-page,
+body.register-page {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
 body {
   font-family: 'Noto Sans SC', sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--light-bg-primary);
   color: var(--light-text-primary);
-  overflow-x: hidden;
   min-height: 100vh;
 }
 
@@ -100,19 +142,28 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: var(--light-bg-primary);
+}
+
+.night .app-container {
+  background-color: var(--dark-bg-primary);
 }
 
 .main-layout {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: var(--light-bg-primary);
+}
+
+.night .main-layout {
+  background-color: var(--dark-bg-primary);
 }
 
 .main-content {
   flex: 1;
   width: 100%;
-  padding-top: 64px;
-  /* Header的高度 */
+  padding-top: 0;
   background-color: var(--light-bg-secondary);
   min-height: calc(100vh - 64px);
 }
@@ -175,23 +226,27 @@ body {
   }
 }
 
-/* 添加滚动条样式 */
+/* 添加全局滚动条样式 */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--light-bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--light-accent);
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
 
-.night ::-webkit-scrollbar-thumb {
-  background-color: var(--dark-accent);
+html.night ::-webkit-scrollbar-track {
+  background: var(--dark-bg-secondary);
+}
+
+html.night ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* 添加页面过渡动画 */

@@ -439,12 +439,12 @@ onMounted(() => {
         }
 
         &:hover {
-          background-color: darken(#e76f51, 5%);
+          background-color: #d15c3f;
           transform: translateY(-2px);
           box-shadow: 0 4px 8px rgba(231, 111, 81, 0.4);
 
           .night & {
-            background-color: darken(#f4a261, 5%);
+            background-color: #f09144;
             box-shadow: 0 4px 8px rgba(244, 162, 97, 0.4);
           }
         }

@@ -181,6 +181,21 @@ section.night {
   z-index: 1000;
 }
 
+/* 添加暗黑模式下电影列表的样式 */
+section.night .movie {
+  background-color: transparent;
+}
+
+section.night .container {
+  color: var(--text-color);
+  background-color: var(--night-card-bg);
+  box-shadow: var(--night-shadow);
+}
+
+section.night li {
+  color: var(--text-color);
+}
+
 h1 {
   font-size: 36px;
   text-align: center;
@@ -208,7 +223,7 @@ h1 {
 }
 
 .pagination button:hover:not(.disabled) {
-  background-color: darken(#e76f51, 10%);
+  background-color: #d15c3f;
   transform: translateY(-2px);
 }
 
@@ -242,18 +257,33 @@ h1 {
   font-size: 14px;
 }
 
+/* 修复分页组件暗黑模式样式 */
 section.night .pagination button {
   background-color: var(--dark-accent);
 }
 
 section.night .pagination button:hover:not(.disabled) {
-  background-color: darken(#f4a261, 10%);
+  background-color: #e76f51;
+  transform: translateY(-2px);
+}
+
+section.night .pagination .page-info {
+  color: var(--text-color);
 }
 
 section.night .pagination .page-jump input {
   background-color: rgba(48, 48, 54, 0.9);
   border-color: #555;
   color: #fff;
+}
+
+/* 搜索结果相关样式 */
+section.night .no-results {
+  color: var(--text-color);
+}
+
+section.night .no-results .icon {
+  opacity: 0.8;
 }
 
 /* 加载状态样式 */

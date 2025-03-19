@@ -65,10 +65,12 @@ onMounted(() => {
   window.scrollTo(0, 0);
   fetchImages();
   document.body.style.overflow = 'hidden';
+  document.body.classList.add('login-page');
 });
 
 onBeforeUnmount(() => {
   document.body.style.overflow = 'auto';
+  document.body.classList.remove('login-page');
 });
 
 watchEffect(() => {
@@ -107,8 +109,16 @@ function goToRegister() {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  width: 100%;
   background-color: #f0f0f0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .login-page.night {
@@ -135,7 +145,7 @@ function goToRegister() {
 }
 
 .background-container {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -149,15 +159,15 @@ function goToRegister() {
 .images-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 0px;
-  width: 100%;
+  gap: 0;
+  width: 100vw;
   height: 100vh;
   overflow: hidden;
 }
 
 .images-grid img {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 

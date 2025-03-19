@@ -331,7 +331,7 @@ watch(isLoggedIn, (newValue) => {
                 color: white;
 
                 &:hover {
-                    background-color: darken(#f4a261, 10%);
+                    background-color: #f09144;
                 }
 
                 &:disabled {
@@ -511,7 +511,7 @@ watch(isLoggedIn, (newValue) => {
         transition: all 0.3s ease;
 
         &:hover {
-            background-color: darken(#e76f51, 10%);
+            background-color: #d15c3f;
         }
 
         &:disabled {

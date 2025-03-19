@@ -60,11 +60,13 @@ const fetchImages = async () => {
 onMounted(() => {
   window.scrollTo(0, 0);
   fetchImages();  // 获取背景图
-  document.body.style.overflow = 'hidden'; 
+  document.body.style.overflow = 'hidden';
+  document.body.classList.add('register-page');
 });
 
 onBeforeUnmount(() => {
   document.body.style.overflow = 'auto';
+  document.body.classList.remove('register-page');
 });
 
 watchEffect(() => {
@@ -96,7 +98,8 @@ function register() {
 
 
 <style scoped lang="scss">
-html, body {
+html,
+body {
   overflow: hidden;
 }
 
@@ -105,21 +108,32 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  position: relative;
+  min-height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
-  height: 100vh;
 
 
   &.night {
     .form-container {
       background-color: #333;
-      h2, form, input {
+
+      h2,
+      form,
+      input {
         color: #dedede;
       }
+
       label {
         color: #dedede;
       }
+
       input {
         background-color: #555;
         border-style: none;
@@ -129,7 +143,7 @@ html, body {
 }
 
 .background-container {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -143,15 +157,15 @@ html, body {
 .images-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 0px;
-  width: 100%;
+  gap: 0;
+  width: 100vw;
   height: 100vh;
   overflow: hidden;
 }
 
 .images-grid img {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 

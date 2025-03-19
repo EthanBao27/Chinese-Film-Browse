@@ -451,7 +451,7 @@ onBeforeUnmount(() => {
         color: rgba(255, 255, 255, 0.95);
 
         &:hover {
-          background: darken(#f4a261, 10%);
+          background: #f09144;
         }
       }
     }
@@ -717,7 +717,7 @@ onBeforeUnmount(() => {
           color: white;
 
           &:hover {
-            background: darken(#e76f51, 10%);
+            background: #d15c3f;
           }
         }
       }
@@ -874,6 +874,11 @@ onBeforeUnmount(() => {
         }
       }
 
+      .night ul {
+        background: var(--dark-bg-primary);
+        box-shadow: var(--dark-shadow);
+      }
+
       .search-container {
         position: absolute;
         top: 50px;
@@ -941,6 +946,99 @@ onBeforeUnmount(() => {
       }
     }
   }
+}
+
+@keyframes sun-appear {
+  0% {
+    transform: scale(0) rotate(-90deg);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+@keyframes moon-appear {
+  0% {
+    transform: scale(0) rotate(90deg);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+/* 优化暗黑模式切换按钮样式 */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--light-border);
+  background: transparent;
+  color: var(--light-text-primary);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--light-accent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.theme-toggle:hover::before {
+  opacity: 0.1;
+}
+
+.night .theme-toggle {
+  border-color: var(--dark-border);
+  color: var(--dark-text-primary);
+}
+
+.night .theme-toggle::before {
+  background: var(--dark-accent);
+}
+
+.icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.icon {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-toggle:hover .icon {
+  transform: rotate(15deg) scale(1.1);
+}
+
+.icon.sun {
+  color: #f4a261;
+  animation: sun-appear 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.icon.moon {
+  color: #2b3945;
+  animation: moon-appear 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes sun-appear {

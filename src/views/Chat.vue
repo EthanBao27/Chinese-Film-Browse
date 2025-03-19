@@ -115,7 +115,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount, nextTick, watch } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount, nextTick, watch, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import { io } from 'socket.io-client';
 import { storeToRefs } from 'pinia';
@@ -129,8 +129,8 @@ const COMMUNITY_CHAT_ID = 999999;
 const userStore = useUserStore();
 const modeStore = useModeStore();
 const { username } = storeToRefs(userStore);
-// 注释掉未使用的变量
-// const { isNightMode } = storeToRefs(modeStore);
+// 修改这里，取消注释，启用暗黑模式
+const { isNightMode } = storeToRefs(modeStore);
 const mode = ref("");
 
 const newMessage = ref('');
@@ -355,6 +355,11 @@ watch(isLoggedIn, (newValue) => {
         socket.value.disconnect();
         socket.value = null;
     }
+});
+
+// 添加 watchEffect 来监听暗黑模式变化
+watchEffect(() => {
+  mode.value = isNightMode.value ? "night" : "";
 });
 </script>
 
@@ -1163,5 +1168,143 @@ watch(isLoggedIn, (newValue) => {
             opacity: 0.7;
         }
     }
+}
+
+/* 暗黑模式样式 */
+.chat-container.night {
+  background-color: var(--dark-bg-secondary);
+  color: var(--dark-text-primary);
+}
+
+.night .chat-header {
+  background-color: var(--dark-bg-primary);
+  border-bottom-color: var(--dark-border);
+}
+
+.night .chat-body {
+  background-color: var(--dark-bg-secondary);
+}
+
+.night .user-badge {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border);
+}
+
+.night .message-item {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border);
+}
+
+.night .own-message {
+  background-color: rgba(244, 162, 97, 0.2);
+}
+
+.night .message-content {
+  color: var(--dark-text-primary);
+}
+
+.night .message-time {
+  color: var(--dark-text-secondary);
+}
+
+.night .chat-footer {
+  background-color: var(--dark-bg-primary);
+  border-top-color: var(--dark-border);
+}
+
+.night .message-input {
+  background-color: var(--dark-card-bg);
+  color: var(--dark-text-primary);
+  border-color: var(--dark-border);
+}
+
+.night .message-input::placeholder {
+  color: var(--dark-text-secondary);
+}
+
+.night .send-button {
+  background-color: var(--dark-accent);
+  color: var(--dark-bg-primary);
+}
+
+.night .send-button:hover {
+  background-color: #e76f51;
+}
+
+.night .send-button:disabled {
+  background-color: var(--dark-border);
+  color: var(--dark-text-secondary);
+}
+
+.night .system-message {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-color: var(--dark-border);
+}
+
+.night .offline-message {
+  opacity: 0.7;
+}
+
+.night .community-info {
+  color: var(--dark-text-secondary);
+}
+
+.night .online-users {
+  background-color: var(--dark-bg-primary);
+  border-color: var(--dark-border);
+}
+
+.night .online-count {
+  color: var(--dark-text-secondary);
+}
+
+.night .online-icon {
+  background-color: #4caf50;
+}
+
+.night .connecting-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.night .empty-messages {
+  color: var(--dark-text-secondary);
+}
+
+/* 登录区域暗黑模式样式 */
+.night .login-required {
+  background-color: var(--dark-bg-secondary);
+  color: var(--dark-text-primary);
+}
+
+.night .login-title {
+  color: var(--dark-text-primary);
+}
+
+.night .login-message {
+  color: var(--dark-text-secondary);
+}
+
+.night .auth-button {
+  background-color: var(--dark-card-bg);
+  color: var(--dark-text-primary);
+  border-color: var(--dark-border);
+}
+
+.night .login-btn:hover {
+  background-color: var(--dark-accent);
+  color: var(--dark-bg-primary);
+}
+
+.night .register-btn:hover {
+  background-color: var(--dark-accent);
+  color: var(--dark-bg-primary);
+}
+
+.night .lock-animation {
+  color: var(--dark-text-primary);
+}
+
+.night .ripple {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
   <section :class="mode">
-    <h1>Classic movies...</h1>
     <ul class="movie">
       <li v-for="movie in paginatedMovies" :key="movie.id">
         <film-board :movie="movie" :infoApi="Info_API"></film-board>
@@ -166,6 +165,7 @@ section {
   background-color: var(--light-bg-color);
   min-height: 100vh;
   padding-bottom: 40px;
+  padding-top: 50px;
 }
 
 section.night {
@@ -180,6 +180,21 @@ section.night {
   align-items: center;
   justify-content: center;
   z-index: 1000;
+}
+
+/* 添加暗黑模式下电影列表的样式 */
+section.night .movie {
+  background-color: transparent;
+}
+
+section.night .container {
+  color: var(--text-color);
+  background-color: var(--night-card-bg);
+  box-shadow: var(--night-shadow);
+}
+
+section.night li {
+  color: var(--text-color);
 }
 
 h1 {
@@ -209,7 +224,7 @@ h1 {
 }
 
 .pagination button:hover:not(.disabled) {
-  background-color: darken(#e76f51, 10%);
+  background-color: #d15c3f;
   transform: translateY(-2px);
 }
 
@@ -243,12 +258,18 @@ h1 {
   font-size: 14px;
 }
 
+/* 修复分页组件暗黑模式样式 */
 section.night .pagination button {
   background-color: var(--dark-accent);
 }
 
 section.night .pagination button:hover:not(.disabled) {
-  background-color: darken(#f4a261, 10%);
+  background-color: #e76f51;
+  transform: translateY(-2px);
+}
+
+section.night .pagination .page-info {
+  color: var(--text-color);
 }
 
 section.night .pagination .page-jump input {

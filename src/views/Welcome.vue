@@ -31,6 +31,15 @@
                     <router-link to="/home" class="cta-button primary">开始浏览</router-link>
                     <router-link to="/search" class="cta-button secondary">搜索电影</router-link>
                 </div>
+
+                <!-- 添加下滑引导箭头 -->
+                <div class="scroll-down-arrow" @click="scrollToAbout">
+                    <div class="arrow">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -90,13 +99,25 @@ const mode = ref("");
 watchEffect(() => {
     mode.value = isNightMode.value ? "night" : "";
 });
+
+// 滚动到"关于本项目"部分的方法
+const scrollToAbout = () => {
+    const aboutSection = document.querySelector('.about-section');
+    if (aboutSection) {
+        aboutSection.scrollIntoView({ behavior: 'smooth' });
+    }
+};
 </script>
 
 <style scoped lang="scss">
 .welcome-page {
-    min-height: 100vh;
-    padding-top: 64px; // 为顶部导航留出空间
+    width: 100%;
     background-color: var(--light-bg-primary);
+    position: relative;
+    margin-top: -64px;
+    /* 负值抵消 header 高度 */
+    padding-top: 64px;
+    /* 添加等于 header 高度的 padding-top */
     color: var(--light-text-primary);
     transition: all 0.3s ease;
     overflow-x: hidden; // 防止水平滚动
@@ -109,23 +130,17 @@ watchEffect(() => {
     // 英雄区域
     .hero-section {
         position: relative;
-        height: 90vh;
+        width: 100%;
+        min-height: 100vh;
+        padding: 0;
+        margin: 0;
         display: flex;
-        align-items: center;
         justify-content: center;
-        background-image: url('../assets/images/background.jpg');
+        align-items: center;
+        background-image: url('@/assets/images/background.jpg');
         background-size: cover;
         background-position: center;
-        background-attachment: fixed;
-        color: #fff;
         overflow: hidden;
-        margin-bottom: 40px; // 添加底部间距
-
-        @media (max-width: 768px) {
-            height: auto;
-            min-height: 80vh;
-            padding: 40px 0;
-        }
 
         .overlay {
             position: absolute;
@@ -133,117 +148,153 @@ watchEffect(() => {
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1;
+            background: rgba(0, 0, 0, 0.5);
         }
 
         .content {
-            position: relative;
             z-index: 2;
             text-align: center;
-            padding: 0 20px;
+            color: white;
             max-width: 1200px;
-            width: 100%;
-        }
+            padding: 0 20px;
+            margin-top: 0;
 
-        .title {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            animation: fadeInUp 1s ease-out;
-        }
+            .title {
+                font-size: 4rem;
+                margin-bottom: 1rem;
+                animation: fadeInUp 1s ease-out;
+            }
 
-        .subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 3rem;
-            opacity: 0.9;
-            animation: fadeInUp 1.2s ease-out;
-        }
+            .subtitle {
+                font-size: 1.5rem;
+                margin-bottom: 3rem;
+                opacity: 0.9;
+                animation: fadeInUp 1.2s ease-out;
+            }
 
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 3rem;
-            animation: fadeInUp 1.5s ease-out;
+            .features {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: center;
+                margin-bottom: 3rem;
+                animation: fadeInUp 1.5s ease-out;
 
-            .feature-card {
-                background-color: rgba(255, 255, 255, 0.1);
-                backdrop-filter: blur(10px);
-                padding: 24px;
-                border-radius: 12px;
-                width: 220px;
-                text-align: center;
-                transition: all 0.3s ease;
-                text-decoration: none;
-                color: #fff;
-                border: 1px solid rgba(255, 255, 255, 0.1);
+                .feature-card {
+                    background-color: rgba(255, 255, 255, 0.1);
+                    backdrop-filter: blur(10px);
+                    padding: 24px;
+                    border-radius: 12px;
+                    width: 220px;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                    text-decoration: none;
+                    color: #fff;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
 
-                &:hover {
-                    transform: translateY(-5px);
-                    background-color: rgba(255, 255, 255, 0.2);
-                    border-color: rgba(255, 255, 255, 0.3);
+                    &:hover {
+                        transform: translateY(-5px);
+                        background-color: rgba(255, 255, 255, 0.2);
+                        border-color: rgba(255, 255, 255, 0.3);
+                    }
+
+                    .icon {
+                        font-size: 2.5rem;
+                        margin-bottom: 1rem;
+                    }
+
+                    h3 {
+                        font-size: 1.2rem;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    p {
+                        font-size: 0.9rem;
+                        opacity: 0.8;
+                    }
                 }
+            }
 
-                .icon {
-                    font-size: 2.5rem;
-                    margin-bottom: 1rem;
-                }
+            .cta-buttons {
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+                animation: fadeInUp 1.8s ease-out;
 
-                h3 {
-                    font-size: 1.2rem;
-                    margin-bottom: 0.5rem;
-                }
+                .cta-button {
+                    padding: 12px 30px;
+                    border-radius: 50px;
+                    font-size: 1rem;
+                    font-weight: 600;
+                    text-decoration: none;
+                    transition: all 0.3s ease;
 
-                p {
-                    font-size: 0.9rem;
-                    opacity: 0.8;
+                    &.primary {
+                        background-color: var(--light-accent);
+                        color: #fff;
+
+                        &:hover {
+                            background-color: #d15c3f;
+                            transform: translateY(-2px);
+                        }
+                    }
+
+                    &.secondary {
+                        background-color: transparent;
+                        border: 2px solid #fff;
+                        color: #fff;
+
+                        &:hover {
+                            background-color: rgba(255, 255, 255, 0.1);
+                            transform: translateY(-2px);
+                        }
+                    }
+
+                    .night & {
+                        &.primary {
+                            background-color: var(--dark-accent);
+
+                            &:hover {
+                                background-color: #f09144;
+                            }
+                        }
+                    }
                 }
             }
         }
 
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            animation: fadeInUp 1.8s ease-out;
+        // 添加下滑引导箭头样式
+        .scroll-down-arrow {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            z-index: 10;
+            animation: bounce 2s infinite;
 
-            .cta-button {
-                padding: 12px 30px;
-                border-radius: 50px;
-                font-size: 1rem;
-                font-weight: 600;
-                text-decoration: none;
-                transition: all 0.3s ease;
+            .arrow {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
 
-                &.primary {
-                    background-color: var(--light-accent);
-                    color: #fff;
+                span {
+                    display: block;
+                    width: 20px;
+                    height: 20px;
+                    border-bottom: 3px solid white;
+                    border-right: 3px solid white;
+                    transform: rotate(45deg);
+                    opacity: 0;
+                    animation: fadeInOut 2s infinite;
 
-                    &:hover {
-                        background-color: darken(#e76f51, 10%);
-                        transform: translateY(-2px);
+                    &:nth-child(2) {
+                        animation-delay: 0.2s;
                     }
-                }
 
-                &.secondary {
-                    background-color: transparent;
-                    border: 2px solid #fff;
-                    color: #fff;
-
-                    &:hover {
-                        background-color: rgba(255, 255, 255, 0.1);
-                        transform: translateY(-2px);
-                    }
-                }
-
-                .night & {
-                    &.primary {
-                        background-color: var(--dark-accent);
-
-                        &:hover {
-                            background-color: darken(#f4a261, 10%);
-                        }
+                    &:nth-child(3) {
+                        animation-delay: 0.4s;
                     }
                 }
             }
@@ -351,7 +402,7 @@ watchEffect(() => {
                 .image-container {
                     width: 100%;
                     height: 350px;
-                    background-image: url('../assets/images/background.jpg');
+                    background-image: url('@/assets/images/background.jpg');
                     background-size: cover;
                     background-position: center;
                     border-radius: 12px;
@@ -412,11 +463,12 @@ watchEffect(() => {
                 align-items: center;
                 justify-content: center;
                 text-decoration: none;
-                background-color: var(--light-bg-primary);
+                background-color: var(--light-card-bg);
                 color: var(--light-text-primary);
                 border-radius: 12px;
                 transition: all 0.3s ease;
                 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+                border: 1px solid rgba(0, 0, 0, 0.05);
 
                 @media (max-width: 768px) {
                     width: calc(50% - 10px);
@@ -439,6 +491,7 @@ watchEffect(() => {
 
                     .night & {
                         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+                        background-color: var(--dark-bg-primary);
                     }
                 }
 
@@ -450,6 +503,13 @@ watchEffect(() => {
 
                 h3 {
                     font-size: 1.3rem;
+                }
+
+                .night & {
+                    background-color: var(--dark-card-bg);
+                    color: var(--dark-text-primary);
+                    border-color: var(--dark-border);
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
                 }
             }
         }
@@ -505,6 +565,40 @@ watchEffect(() => {
                 }
             }
         }
+    }
+}
+
+// 添加下滑箭头动画
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    40% {
+        transform: translateX(-50%) translateY(-15px);
+    }
+
+    60% {
+        transform: translateX(-50%) translateY(-7px);
     }
 }
 </style>
